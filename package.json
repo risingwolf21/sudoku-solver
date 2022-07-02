@@ -1,7 +1,7 @@
 {
   "name": "sudoku-solver",
   "version": "0.1.0",
-  "homepage": "https://github.com/risingwolf21/sudoku-solver",
+  "homepage": "https://risingwolf21.github.io/sudoku-solver",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.9.3",
