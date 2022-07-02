@@ -1,24 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
+import Board from './Board.js';
+
+const _board = [ ['.', '9', '.', '.', '4', '2', '1', '3', '6'], ['.', '.', '.', '9', '6', '.', '4', '8', '5'], ['.', '.', '.', '5', '8', '1', '.', '.', '.'], ['.', '.', '4', '.', '.', '.', '.', '.', '.'], ['5', '1', '7', '2', '.', '.', '9', '.', '.'], ['6', '.', '2', '.', '.', '.', '3', '7', '.'], ['1', '.', '.', '8', '.', '4', '.', '2', '.'], ['7', '.', '6', '.', '.', '.', '8', '1', '.'], ['3', '.', '.', '.', '9', '.', '.', '.', '.'], ];
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Board/>
   );
 }
 
