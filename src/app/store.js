@@ -1,5 +1,5 @@
-import { configureStore } from '@reduxjs/toolkit'
+import React from 'react'
+import { createStore } from 'redux'
+import rootReducer from './reducer'
 
-export default configureStore({
-reducer: {},
-})
+export default createStore(rootReducer);

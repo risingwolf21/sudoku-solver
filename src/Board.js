@@ -1,5 +1,7 @@
-export default function Board() {
-const board = [ ['.', '9', '.', '.', '4', '2', '1', '3', '6'], ['.', '.', '.', '9', '6', '.', '4', '8', '5'], ['.', '.', '.', '5', '8', '1', '.', '.', '.'], ['.', '.', '4', '.', '.', '.', '.', '.', '.'], ['5', '1', '7', '2', '.', '.', '9', '.', '.'], ['6', '.', '2', '.', '.', '.', '3', '7', '.'], ['1', '.', '.', '8', '.', '4', '.', '2', '.'], ['7', '.', '6', '.', '.', '.', '8', '1', '.'], ['3', '.', '.', '.', '9', '.', '.', '.', '.'], ];
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+
+const Board = ({dispatch, board}) => {
   return (
     <div style={{margin: "10px"}}>
     {
@@ -7,7 +9,7 @@ const board = [ ['.', '9', '.', '.', '4', '2', '1', '3', '6'], ['.', '.', '.', '
         return (
         <div style={{display: "flex", "flex-direction": "row"}}>
           {
-            row.map((val,y) => field(val,x,y))
+            row.map((val,y) => field(val, (newVal) => dispatch({type: "changeNumber", x: x, y: y, value: newVal})))
           }
         </div>
         );
@@ -17,13 +19,27 @@ const board = [ ['.', '9', '.', '.', '4', '2', '1', '3', '6'], ['.', '.', '.', '
     );
 }
 
-const field = (value, x, y) => {
+const field = (value, changeNumber) => {
+  
+  function onChange(event){
+    if(event.target.value.length === 1){
+      changeNumber(event.target.value);
+    }
+    else if(event.target.value.length === 0){
+      changeNumber("");
+    }
+  }
+  
   return (
     <div style={{border: "1px solid black", width: "50px", display: "flex", height: "50px", "align-items": "center", "justify-content": "center"}}>
     {
-      value !== "." ?
-      <p style={{"font-size": "20px"}}>{value}</p>
-      : <input style={{width: "20px", height: "30px", "font-size": "20px"}}/>
+      <input value={value} onChange={onChange} style={{width: "20px", height: "30px", "font-size": "20px"}}/>
     }
     </div>);
 }
+
+const mapStateToProps = () => createStructuredSelector({ 
+  board: state => state.board
+});
+
+export default connect(mapStateToProps)(Board)
