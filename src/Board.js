@@ -39,7 +39,7 @@ const field = (value, changeNumber) => {
 }
 
 const mapStateToProps = () => createStructuredSelector({ 
-  board: state => state.board
+  board: state => state.board.board
 });
 
 export default connect(mapStateToProps)(Board)

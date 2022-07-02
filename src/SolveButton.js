@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import {sudokoSolver} from './solver.js';
+import {sudokuSolving} from './solver.js';
 
 const SolveButton = ({dispatch, board}) => {
   
@@ -10,7 +10,7 @@ const SolveButton = ({dispatch, board}) => {
   }
   
   const solveBoard = () => {
-    let newBoard = sudokoSolver(board);
+    let newBoard = sudokuSolving(board);
     dispatch({type: "Solve", board: newBoard});
   }
   

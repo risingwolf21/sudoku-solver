@@ -10,6 +10,11 @@ export const isValid = (board, row, col, k) => {
   return true; 
 }
 
+export const sudokuSolving = (data) => {
+  sudokoSolver(data);
+  return data;
+}
+
 export const sudokoSolver = (data) => { 
   for (let i = 0; i < 9; i++) { 
     for (let j = 0; j < 9; j++) { 
