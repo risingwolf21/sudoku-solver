@@ -2,10 +2,20 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 const Board = ({dispatch, board}) => {
+  let formattedBoard = [];
+  let temp = [];
+  for(let i = 0; i < board.length; i++){
+    if(i % 9 === 0){
+      formattedBoard.push(temp);
+      temp = [];
+    } else {
+      temp.push(board[i]);
+    }
+  }
   return (
     <div style={{margin: "10px"}}>
     {
-      board.map((row,x) => {
+      formattedBoard.map((row, x) => {
         return (
         <div style={{display: "flex", "flex-direction": "row"}}>
           {
@@ -22,18 +32,13 @@ const Board = ({dispatch, board}) => {
 const field = (value, changeNumber) => {
   
   function onChange(event){
-    if(event.target.value.length === 1){
-      changeNumber(event.target.value);
-    }
-    else if(event.target.value.length === 0){
-      changeNumber("");
-    }
+      changeNumber(parseInt(event.target.value));
   }
   
   return (
     <div style={{border: "1px solid black", width: "50px", display: "flex", height: "50px", "align-items": "center", "justify-content": "center"}}>
     {
-      <input value={value} onChange={onChange} style={{width: "20px", height: "30px", "font-size": "20px"}}/>
+      <input maxLength={1} value={value===0?'':value} onChange={onChange} style={{width: "20px", height: "30px", "font-size": "20px"}}/>
     }
     </div>);
 }
