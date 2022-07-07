@@ -1,25 +1,17 @@
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { i2rc } from './solver.js';
 
 const Board = ({dispatch, board}) => {
-  let formattedBoard = [];
-  let temp = [];
-  for(let i = 0; i < board.length; i++){
-    if(i % 9 === 0){
-      formattedBoard.push(temp);
-      temp = [];
-    } else {
-      temp.push(board[i]);
-    }
-  }
   return (
-    <div style={{margin: "10px"}}>
+    <div style={{ display: "grid", gap: "10px", margin: "10px", "grid-template-columns": "repeat(9, 1fr)"}}>
     {
-      formattedBoard.map((row, x) => {
+      board.map((val, x) => {
+        let { row, col } = i2rc(x);
         return (
-        <div style={{display: "flex", "flex-direction": "row"}}>
+        <div style={{"grid-column": col, "grid-row": row}}>
           {
-            row.map((val,y) => field(val, (newVal) => dispatch({type: "changeNumber", x: x, y: y, value: newVal})))
+            field(val, (newVal) => dispatch({type: "changeNumber", x: row, y: col, value: newVal}))
           }
         </div>
         );
@@ -29,16 +21,30 @@ const Board = ({dispatch, board}) => {
     );
 }
 
+const isPositiveInteger = (str) => { 
+  if (typeof str !== 'string') { 
+    return false; 
+  } 
+  const num = Number(str); 
+  if (Number.isInteger(num) && num > 0) { return true; 
+  } 
+  return false; 
+}
+
 const field = (value, changeNumber) => {
   
   function onChange(event){
-      changeNumber(parseInt(event.target.value));
+      if(isPositiveInteger(event.target.value) && parseInt(event.target.value) !== 0){
+        changeNumber(parseInt(event.target.value));
+      } else if(event.target.value === ''){
+        changeNumber(0);
+      }
   }
   
   return (
-    <div style={{border: "1px solid black", width: "50px", display: "flex", height: "50px", "align-items": "center", "justify-content": "center"}}>
+    <div style={{border: "1px solid black", width: "28px", display: "flex", height: "28px", "align-items": "center", "justify-content": "center"}}>
     {
-      <input maxLength={1} value={value===0?'':value} onChange={onChange} style={{width: "20px", height: "30px", "font-size": "20px"}}/>
+      <input maxLength={1} value={value===0?'':value} onChange={onChange} style={{width: "28px", height: "28px", "font-size": "20px", "text-align": "center"}}/>
     }
     </div>);
 }

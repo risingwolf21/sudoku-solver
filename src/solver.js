@@ -1,4 +1,4 @@
-function i2rc(index) {
+export function i2rc(index) {
   return { row: Math.floor(index / 9), col: index % 9 };
 }
 

@@ -10,12 +10,13 @@ const SolveButton = ({dispatch, board}) => {
   
   const solveBoard = () => {
     let data = JSON.parse(JSON.stringify(board));
-    if(solve(board)){
-      alert(board);
-      dispatch({type: "Solve", board: board});
+    if(solve(data.board)){
+      dispatch({type: "Solve", board: data.board});
     }
-    else
+    else {
+      alert("Sudoku cannot be solved!");
       dispatch({type: "Reset"});
+    }
   }
   
   return (
